@@ -130,10 +130,15 @@ function seedProduction(state: ErpState) {
   done.lot = 'LOT-20261003-001';
   issueMaterials(state, done.id, 'SEED-MO1-OUT');
   reportOutput(state, done.id, 50, 'SEED-MO1-IN');
-  const ready = createWorkOrder(state, { productCode: 'FG-001', qty: 300, due: '2026-10-10' });
+  // Restore historical sample dates after creation; new-order validation uses today's date.
+  const ready = createWorkOrder(state, { productCode: 'FG-001', qty: 300 });
+  ready.date = '2026-10-07';
+  ready.due = '2026-10-10';
   ready.id = 'MO-202610-002';
   ready.lot = 'LOT-20261007-002';
-  const short = createWorkOrder(state, { productCode: 'FG-002', qty: 2000, due: '2026-10-17' });
+  const short = createWorkOrder(state, { productCode: 'FG-002', qty: 2000 });
+  short.date = '2026-10-07';
+  short.due = '2026-10-17';
   short.id = 'MO-202610-003';
   short.lot = 'LOT-20261007-003';
 }
